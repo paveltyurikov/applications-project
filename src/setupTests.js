@@ -1,20 +1,21 @@
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
+import { configure } from "@testing-library/react";
+import { server } from "./mocks/server";
 
 
-const { server } = require("./mocks/server");
-
+configure({ testIdAttribute: "data-testid" });
 
 beforeAll(() => {
   // Enable the mocking in tests.
-  server.listen({ onUnhandledRequest: "error" })
-})
+  server.listen({ onUnhandledRequest: "error" });
+});
 
 afterEach(() => {
   // Reset any runtime handlers tests may use.
-  server.resetHandlers()
-})
+  server.resetHandlers();
+});
 
 afterAll(() => {
   // Clean up once the tests are done.
-  server.close()
-})
+  server.close();
+});
