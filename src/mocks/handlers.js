@@ -1,4 +1,5 @@
 import { rest } from "msw";
+import { APPLICATIONS_HANDLERS } from "~/mocks/handlers/applications/index";
 
 
 export const handlers = [
@@ -9,4 +10,5 @@ export const handlers = [
       })
     );
   }),
+  ...APPLICATIONS_HANDLERS,
 ];

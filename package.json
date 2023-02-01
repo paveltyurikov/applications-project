@@ -30,6 +30,7 @@
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-react": "^7.32.1",
+    "fuse.js": "^6.6.2",
     "jsdom": "^21.1.0",
     "msw": "^1.0.0",
     "prettier": "^2.8.3",
