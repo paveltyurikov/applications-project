@@ -8,4 +8,4 @@ export const APPLICATIONS_CATEGORIES = [
   "Payroll",
 ];
 
-export const INITIAL_FILTER_STATE = []
+export const INITIAL_FILTER_STATE = [];

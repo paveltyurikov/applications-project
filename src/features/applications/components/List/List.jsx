@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Grid } from "@mui/material";
 import AppliedFilters from "~/components/AppliedFilters";
 import ListEmptyWarning from "~/components/ListEmptyWarning/index.js";
@@ -19,11 +19,15 @@ const ApplicationsList = () => {
   const { appliedFilters, removeAppliedFilter } = useFilterContext();
   const [search, setSearch] = useState("");
   const { page, setPage } = usePaginationContext();
-  const { data = [], isFetched } = useApplicationsList({
-    ...(search && { search }),
-    page,
-    categories: appliedFilters.map((filter) => filter.id),
-  });
+  const filters = useMemo(
+    () => ({
+      ...(search && { search }),
+      page,
+      categories: appliedFilters.map((filter) => filter.id),
+    }),
+    [appliedFilters, page, search]
+  );
+  const { data, isFetched } = useApplicationsList(filters);
 
   return (
     <Grid container rowSpacing={3}>
@@ -31,13 +35,18 @@ const ApplicationsList = () => {
         <PaginationInfo page={page} count={data?.count || 0} />
       </Grid>
       <Grid item container direction="column">
-        <ListFilter ListFilterButton={ListFilterButton} setSearch={setSearch} value={search} placeholder="Search apps" />
+        <ListFilter
+          ListFilterButton={ListFilterButton}
+          setSearch={setSearch}
+          value={search}
+          placeholder="Search apps"
+        />
         <AppliedFilters
           appliedFilters={appliedFilters}
           removeAppliedFilter={removeAppliedFilter}
         />
       </Grid>
-      {isFetched && data.count === 0 ? (
+      {isFetched && data?.count === 0 ? (
         <ListEmptyWarning />
       ) : (
         <>

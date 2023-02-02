@@ -27,8 +27,14 @@ const ApplicationsListItem = ({ application }) => {
   return (
     <>
       <Card
+        data-testid="application-card"
         elevation={1}
-        sx={{ display: "flex", flexDirection: "column", minHeight: "100%", flexGrow:1 }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100%",
+          flexGrow: 1,
+        }}
       >
         <CardHeader
           data-testid="app-header"

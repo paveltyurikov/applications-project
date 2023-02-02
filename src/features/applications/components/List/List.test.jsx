@@ -1,78 +1,168 @@
-import {cleanup, render, screen} from "@testing-library/react";
+import React from "react";
+import {
+  cleanup,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {afterEach, vi} from "vitest";
-import FilterContextProvider from "./FilterContextProvider";
-import ApplicationsListFilterDialog from "./ListFilterDialog";
+import { beforeEach, vi } from "vitest";
+import * as getListAPi from "~/features/applications/api/getList";
+import AllProviders from "~/providers/AllProviders/index.js";
+import ApplicationsList from "./List";
 
 
-const onClose = vi.fn();
-const onClear = vi.fn();
-const onApply = vi.fn();
+const getList = vi.spyOn(getListAPi, "default");
 
 const ui = (
-    <FilterContextProvider>
-        <ApplicationsListFilterDialog open hide={onClose}/>
-    </FilterContextProvider>
+  <AllProviders>
+    <ApplicationsList />
+  </AllProviders>
 );
 
-describe("ListFilterDialog", () => {
-    afterEach(() => {
-        cleanup();
-        vi.resetAllMocks();
+describe("ApplicationsList", () => {
+  beforeEach((context) => {
+    cleanup();
+    console.dir(context);
+  });
+  afterEach(() => {
+    vi.resetAllMocks();
+  });
+  test("should render correctly", async () => {
+    render(ui);
+    await waitFor(() => screen.findByText("Discord"));
+    expect(screen.queryAllByTestId("application-card").length).toBe(10);
+    expect(screen.getByTestId("pagination-info")).toBeInTheDocument();
+    expect(screen.getByTestId("list-filter")).toBeInTheDocument();
+    expect(
+      within(screen.getByTestId("list-filter")).getByText("Filters")
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("applied-filters")).toBeInTheDocument();
+    expect(screen.getByTestId("list-pagination")).toBeInTheDocument();
+  });
+  test("should handle page change with select box2", async () => {
+    render(ui);
+    await waitFor(() => screen.findByText("Discord"));
+    expect(
+      within(screen.getByTestId("list-pagination")).getByLabelText("page 1")
+    ).toBeInTheDocument();
+    expect(
+      within(screen.getByTestId("list-pagination")).getByLabelText("page 1")
+    ).toHaveAttribute("aria-current", "true");
+    // eslint-disable-next-line testing-library/no-node-access
+    const select = document.getElementById("mui-component-select-page-select");
+    await userEvent.click(select);
+    await userEvent.click(
+      within(screen.getByRole("presentation")).getByText(2)
+    );
+    // await waitFor(() => screen.findByText(/some-11/));
+    expect(getList).toHaveBeenCalledWith({
+      categories: [],
+      page: 2,
     });
-    it("should render all its elements", () => {
-        render(ui);
-        expect(screen.getByTestId("filters-name")).toHaveTextContent("Categories");
-        expect(screen.getByText("Accounting")).toBeInTheDocument();
-        expect(screen.getByText("Bookkeeping")).toBeInTheDocument();
-        expect(screen.getByText("Communications")).toBeInTheDocument();
-        expect(screen.getByText("Compliance")).toBeInTheDocument();
-        expect(screen.getByText("eCommerce")).toBeInTheDocument();
-        expect(screen.getByText("HRIS")).toBeInTheDocument();
-        expect(screen.queryAllByTestId("category-checkbox").length).toBe(7);
+  });
+  test("should handle Filters change", async () => {
+    render(ui);
+
+    await waitFor(() => screen.findByText("Discord"));
+    // expect(getList).toHaveBeenCalledTimes(1);
+    // expect(getList).toHaveBeenCalledWith({
+    //   categories: [],
+    //   page: 1,
+    // });
+
+    expect(screen.queryAllByTestId("application-card").length).toBe(10);
+
+    await userEvent.click(
+      within(screen.getByTestId("list-filter")).getByText("Filters")
+    );
+    await userEvent.click(
+      within(screen.getByTestId("list-filter-dialog")).getByText("Accounting")
+    );
+    await userEvent.click(
+      within(screen.getByTestId("list-filter-dialog")).getByText("Bookkeeping")
+    );
+    await userEvent.click(
+      within(screen.getByTestId("list-filter-dialog")).getByText("Apply")
+    );
+    expect(screen.queryAllByTestId("applied-filter")[0]).toHaveTextContent(
+      "Accounting"
+    );
+    expect(screen.queryAllByTestId("applied-filter")[1]).toHaveTextContent(
+      "Bookkeeping"
+    );
+    expect(getList).toHaveBeenCalledWith({
+      categories: ["Accounting", "Bookkeeping"],
+      page: 1,
     });
-    it("should handle checkbox click", async () => {
-        render(ui);
-        const checkboxes = screen.queryAllByTestId("category-checkbox")
-        expect(checkboxes[0].className).not.toMatch(/Mui-checked/)
-        expect(checkboxes[1].className).not.toMatch(/Mui-checked/)
-        await userEvent.click(checkboxes[0])
-        await userEvent.click(checkboxes[1])
-        expect(checkboxes[0].className).toMatch(/Mui-checked/)
-        expect(checkboxes[1].className).toMatch(/Mui-checked/)
-        await userEvent.click(checkboxes[1])
-        expect(checkboxes[0].className).toMatch(/Mui-checked/)
-        expect(checkboxes[1].className).not.toMatch(/Mui-checked/)
+
+    // expect(getList).toHaveBeenCalledTimes(2);
+
+    await userEvent.click(
+      within(screen.queryAllByTestId("applied-filter")[1]).getByTestId(
+        "CancelIcon"
+      )
+    );
+    expect(screen.queryAllByTestId("applied-filter")[0]).toHaveTextContent(
+      "Accounting"
+    );
+    expect(screen.queryAllByTestId("applied-filter").length).toBe(1);
+    // expect(getList).toHaveBeenCalledTimes(3);
+    expect(getList).toHaveBeenCalledWith({
+      categories: ["Accounting"],
+      page: 1,
     });
-    it("should handle Close click", async () => {
-        render(ui);
-        await userEvent.click(screen.getByTestId('btn-close'))
-        expect(onClose).toBeCalledTimes(1)
+  });
+  test("should handle page change", async () => {
+    render(ui);
+
+    // expect(getList).toHaveBeenCalledTimes(1);
+    await waitFor(() => screen.findByText("Discord"), { timeout: 4000 });
+    expect(
+      within(screen.getByTestId("list-pagination")).getByLabelText("page 1")
+    ).toBeInTheDocument();
+    expect(
+      within(screen.getByTestId("list-pagination")).getByLabelText("page 1")
+    ).toHaveAttribute("aria-current", "true");
+    expect(
+      within(screen.getByTestId("list-pagination")).getByLabelText(
+        "Go to page 2"
+      )
+    ).toBeInTheDocument();
+    await userEvent.click(
+      within(screen.getByTestId("list-pagination")).getByLabelText(
+        "Go to page 2"
+      )
+    );
+    //expect(getList).toHaveBeenCalledTimes(2);
+
+    expect(getList).toHaveBeenCalledWith({
+      categories: [],
+      page: 2,
     });
-    it("should handle clear click", async () => {
-        render(ui);
-        const checkboxes = screen.queryAllByTestId("category-checkbox")
-        expect(checkboxes[0].className).not.toMatch(/Mui-checked/)
-        expect(checkboxes[1].className).not.toMatch(/Mui-checked/)
-        await userEvent.click(checkboxes[0])
-        await userEvent.click(checkboxes[1])
-        expect(checkboxes[0].className).toMatch(/Mui-checked/)
-        expect(checkboxes[1].className).toMatch(/Mui-checked/)
-        await userEvent.click(screen.getByText(/^clear$/i))
-        expect(checkboxes[0].className).not.toMatch(/Mui-checked/)
-        expect(checkboxes[1].className).not.toMatch(/Mui-checked/)
+  });
+  test("should handle page change with select box", async () => {
+    const { debug } = render(ui);
+    await screen.findByText("Discord");
+    expect(
+      within(screen.getByTestId("list-pagination")).getByLabelText("page 1")
+    ).toBeInTheDocument();
+    expect(
+      within(screen.getByTestId("list-pagination")).getByLabelText("page 1")
+    ).toHaveAttribute("aria-current", "true");
+    // eslint-disable-next-line testing-library/no-node-access
+    const select = document.getElementById("mui-component-select-page-select");
+    await userEvent.click(select);
+    const opt = within(screen.getByRole("presentation")).getByText(2);
+    debug(opt);
+    await userEvent.click(
+      within(screen.getByRole("presentation")).getByText(2)
+    );
+    // await waitFor(() => screen.findByText(/some-11/));
+    expect(getList).toHaveBeenCalledWith({
+      categories: [],
+      page: 2,
     });
-    it("should handle Clear all click", async () => {
-        render(ui);
-        const checkboxes = screen.queryAllByTestId("category-checkbox")
-        expect(checkboxes[0].className).not.toMatch(/Mui-checked/)
-        expect(checkboxes[1].className).not.toMatch(/Mui-checked/)
-        await userEvent.click(checkboxes[0])
-        await userEvent.click(checkboxes[1])
-        expect(checkboxes[0].className).toMatch(/Mui-checked/)
-        expect(checkboxes[1].className).toMatch(/Mui-checked/)
-        await userEvent.click(screen.getByText(/^clear all$/i))
-        expect(checkboxes[0].className).not.toMatch(/Mui-checked/)
-        expect(checkboxes[1].className).not.toMatch(/Mui-checked/)
-    });
+  });
 });

@@ -1,4 +1,4 @@
 import ApplicationsList from "./List";
 
 
-export default ApplicationsList
+export default ApplicationsList;
