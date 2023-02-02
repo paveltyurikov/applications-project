@@ -2,9 +2,9 @@ import { useCallback, useMemo } from "react";
 import { DEFAULT_PAGE_SIZE } from "~/constants/config";
 
 
-export const getPagesCount = (dataLength, pageSize) => {
-  const reminder = dataLength % pageSize;
-  const divisionResult = dataLength / pageSize;
+export const getPagesCount = (count, pageSize) => {
+  const reminder = count % pageSize;
+  const divisionResult = count / pageSize;
   return reminder === 0 ? divisionResult : parseInt(divisionResult, 10) + 1;
 };
 

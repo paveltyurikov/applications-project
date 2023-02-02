@@ -1,17 +1,14 @@
 import { cleanup, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { QueryCache } from "react-query";
 import { afterEach, vi } from "vitest";
 import ListPagination from "./ListPagination";
 
 
 const onPageChange = vi.fn();
-const cache = new QueryCache();
 const ui = <ListPagination page={1} count={15} onPageChange={onPageChange} />;
 
 describe("ListPagination", () => {
   afterEach(() => {
-    cache.clear();
     vi.resetAllMocks();
     cleanup();
   });
