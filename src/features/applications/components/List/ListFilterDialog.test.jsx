@@ -1,16 +1,16 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, vi } from "vitest";
-import FilterContextProvider from "./FilterContextProvider";
+import AppStateProvider from "~/providers/AppStateProvider/index.js";
 import ApplicationsListFilterDialog from "./ListFilterDialog";
 
 
 const onClose = vi.fn();
 
 const ui = (
-  <FilterContextProvider>
+  <AppStateProvider>
     <ApplicationsListFilterDialog open hide={onClose} />
-  </FilterContextProvider>
+  </AppStateProvider>
 );
 
 describe("ListFilterDialog", () => {

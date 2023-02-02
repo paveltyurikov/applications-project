@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
-import * as notifyMeAPi from "~/features/applications/api/notifyMe";
 import AllProviders from "~/providers/AllProviders";
 import NotifyMeDialog from "./NotifyMeDialog.jsx";
 
@@ -43,22 +42,19 @@ describe("NotifyMeDialog", () => {
   it("should not allow submit notify when email empty or invalid", async () => {
     render(ui);
     expect(screen.queryByText("Invalid email address")).not.toBeInTheDocument();
-    expect(screen.getByText(/notify me/i)).toBeDisabled();
     await userEvent.type(screen.getByLabelText(/email/i), "wrong.email");
     screen.getByDisplayValue("wrong.email");
+    await userEvent.click(screen.getByText(/notify me/i));
     expect(screen.getByText("Invalid email address")).toBeInTheDocument();
     expect(screen.getByText(/notify me/i)).toBeDisabled();
   });
   it("should allow submit notify email is valid", async () => {
     render(ui);
-    const notifyMe = vi.spyOn(notifyMeAPi, "default");
     expect(screen.queryByText("Invalid email address")).not.toBeInTheDocument();
     await userEvent.type(screen.getByLabelText(/email/i), "valid@email.com");
     expect(screen.queryByText("Invalid email address")).not.toBeInTheDocument();
     expect(screen.getByText(/notify me/i)).toBeEnabled();
     await userEvent.click(screen.getByText(/notify me/i));
-    expect(notifyMe).toHaveBeenCalledTimes(1);
-    expect(notifyMe).toHaveBeenCalledWith("valid@email.com", 1);
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 });

@@ -5,15 +5,16 @@ import {
   APPLICATIONS_CATEGORIES,
   INITIAL_FILTER_STATE,
 } from "~/features/applications/constants/filterCategories";
-import { useFilterContext } from "~/features/applications/hooks";
+import { useFilter } from "~/hooks";
 
 
 const ApplicationsListFilterDialog = ({ anchorEl, open, hide }) => {
-  const { applyFilters } = useFilterContext();
-  const [filters, setFilters] = useState(INITIAL_FILTER_STATE);
+  const { applyFilters } = useFilter();
+  const [selectedCategories, setSelectedCategories] =
+    useState(INITIAL_FILTER_STATE);
 
   const handleCheckBoxClick = useCallback((e) => {
-    setFilters((curr) => {
+    setSelectedCategories((curr) => {
       const existing = curr.find((category) => {
         return category.id === e.target.name;
       });
@@ -25,12 +26,12 @@ const ApplicationsListFilterDialog = ({ anchorEl, open, hide }) => {
   }, []);
 
   const handleClear = useCallback(() => {
-    setFilters(INITIAL_FILTER_STATE);
+    setSelectedCategories(INITIAL_FILTER_STATE);
   }, []);
 
   const handleApplyClick = useCallback(() => {
-    applyFilters(filters);
-  }, [applyFilters, filters]);
+    applyFilters(selectedCategories);
+  }, [applyFilters, selectedCategories]);
 
   return (
     <FilterDialog
@@ -50,7 +51,9 @@ const ApplicationsListFilterDialog = ({ anchorEl, open, hide }) => {
                 data-testid="category-checkbox"
                 onClick={handleCheckBoxClick}
                 name={category}
-                checked={Boolean(filters.find((el) => el.id === category))}
+                checked={Boolean(
+                  selectedCategories.find((el) => el.id === category)
+                )}
               />
             }
             label={category}

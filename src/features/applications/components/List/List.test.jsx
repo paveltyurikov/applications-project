@@ -7,13 +7,9 @@ import {
   within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, vi } from "vitest";
-import * as getListAPi from "~/features/applications/api/getList";
 import AllProviders from "~/providers/AllProviders/index.js";
 import ApplicationsList from "./List";
 
-
-const getList = vi.spyOn(getListAPi, "default");
 
 const ui = (
   <AllProviders>
@@ -22,12 +18,8 @@ const ui = (
 );
 
 describe("ApplicationsList", () => {
-  beforeEach((context) => {
-    cleanup();
-    console.dir(context);
-  });
   afterEach(() => {
-    vi.resetAllMocks();
+    cleanup();
   });
   test("should render correctly", async () => {
     render(ui);
@@ -41,37 +33,10 @@ describe("ApplicationsList", () => {
     expect(screen.getByTestId("applied-filters")).toBeInTheDocument();
     expect(screen.getByTestId("list-pagination")).toBeInTheDocument();
   });
-  test("should handle page change with select box2", async () => {
-    render(ui);
-    await waitFor(() => screen.findByText("Discord"));
-    expect(
-      within(screen.getByTestId("list-pagination")).getByLabelText("page 1")
-    ).toBeInTheDocument();
-    expect(
-      within(screen.getByTestId("list-pagination")).getByLabelText("page 1")
-    ).toHaveAttribute("aria-current", "true");
-    // eslint-disable-next-line testing-library/no-node-access
-    const select = document.getElementById("mui-component-select-page-select");
-    await userEvent.click(select);
-    await userEvent.click(
-      within(screen.getByRole("presentation")).getByText(2)
-    );
-    // await waitFor(() => screen.findByText(/some-11/));
-    expect(getList).toHaveBeenCalledWith({
-      categories: [],
-      page: 2,
-    });
-  });
   test("should handle Filters change", async () => {
     render(ui);
 
-    await waitFor(() => screen.findByText("Discord"));
-    // expect(getList).toHaveBeenCalledTimes(1);
-    // expect(getList).toHaveBeenCalledWith({
-    //   categories: [],
-    //   page: 1,
-    // });
-
+    await screen.findByText("Discord");
     expect(screen.queryAllByTestId("application-card").length).toBe(10);
 
     await userEvent.click(
@@ -86,21 +51,19 @@ describe("ApplicationsList", () => {
     await userEvent.click(
       within(screen.getByTestId("list-filter-dialog")).getByText("Apply")
     );
-    expect(screen.queryAllByTestId("applied-filter")[0]).toHaveTextContent(
+    const appliedFilters =  screen.queryAllByTestId("applied-filter")
+    expect(appliedFilters[0]).toHaveTextContent(
       "Accounting"
     );
-    expect(screen.queryAllByTestId("applied-filter")[1]).toHaveTextContent(
+    expect(appliedFilters[1]).toHaveTextContent(
       "Bookkeeping"
     );
-    expect(getList).toHaveBeenCalledWith({
-      categories: ["Accounting", "Bookkeeping"],
-      page: 1,
+    const headers = screen.queryAllByTestId("app-header");
+    headers.forEach((header) => {
+      expect(header).toHaveTextContent(/Accounting|Bookkeeping/);
     });
-
-    // expect(getList).toHaveBeenCalledTimes(2);
-
     await userEvent.click(
-      within(screen.queryAllByTestId("applied-filter")[1]).getByTestId(
+      within(appliedFilters[1]).getByTestId(
         "CancelIcon"
       )
     );
@@ -108,17 +71,16 @@ describe("ApplicationsList", () => {
       "Accounting"
     );
     expect(screen.queryAllByTestId("applied-filter").length).toBe(1);
-    // expect(getList).toHaveBeenCalledTimes(3);
-    expect(getList).toHaveBeenCalledWith({
-      categories: ["Accounting"],
-      page: 1,
+    screen.queryAllByTestId("app-header").forEach((header) => {
+      expect(header).toHaveTextContent(/Accounting/);
+      expect(header).not.toHaveTextContent(/Bookkeeping/);
     });
   });
   test("should handle page change", async () => {
     render(ui);
 
     // expect(getList).toHaveBeenCalledTimes(1);
-    await waitFor(() => screen.findByText("Discord"), { timeout: 4000 });
+    await waitFor(() => screen.findByText("Discord"));
     expect(
       within(screen.getByTestId("list-pagination")).getByLabelText("page 1")
     ).toBeInTheDocument();
@@ -135,15 +97,14 @@ describe("ApplicationsList", () => {
         "Go to page 2"
       )
     );
-    //expect(getList).toHaveBeenCalledTimes(2);
-
-    expect(getList).toHaveBeenCalledWith({
-      categories: [],
-      page: 2,
-    });
+    expect(await screen.findByText(/some-11/i)).toBeInTheDocument();
+    expect(
+      within(screen.getByTestId("list-pagination")).getByLabelText("page 2")
+    ).toHaveAttribute("aria-current", "true");
+    expect(screen.queryByText("Discord")).not.toBeInTheDocument();
   });
   test("should handle page change with select box", async () => {
-    const { debug } = render(ui);
+    render(ui);
     await screen.findByText("Discord");
     expect(
       within(screen.getByTestId("list-pagination")).getByLabelText("page 1")
@@ -151,18 +112,35 @@ describe("ApplicationsList", () => {
     expect(
       within(screen.getByTestId("list-pagination")).getByLabelText("page 1")
     ).toHaveAttribute("aria-current", "true");
+
     // eslint-disable-next-line testing-library/no-node-access
     const select = document.getElementById("mui-component-select-page-select");
     await userEvent.click(select);
-    const opt = within(screen.getByRole("presentation")).getByText(2);
-    debug(opt);
     await userEvent.click(
       within(screen.getByRole("presentation")).getByText(2)
     );
-    // await waitFor(() => screen.findByText(/some-11/));
-    expect(getList).toHaveBeenCalledWith({
-      categories: [],
-      page: 2,
+
+    await screen.findByText(/some-11/i);
+    expect(
+      within(screen.getByTestId("list-pagination")).getByLabelText("page 2")
+    ).toHaveAttribute("aria-current", "true");
+    expect(screen.queryByText("Discord")).not.toBeInTheDocument();
+  });
+  test("should handle search", async () => {
+    render(ui);
+    await screen.findByText("Discord");
+    await userEvent.type(
+      screen.getByPlaceholderText("Search apps"),
+      "___NonExistingText___"
+    );
+    expect(screen.queryAllByTestId("application-card").length).toBe(0);
+    await userEvent.clear(screen.getByPlaceholderText("Search apps"));
+    await userEvent.type(
+      screen.getByPlaceholderText("Search apps"),
+      "provides"
+    );
+    screen.queryAllByTestId("application-card").forEach((card) => {
+      expect(card).toHaveTextContent("provides");
     });
   });
 });

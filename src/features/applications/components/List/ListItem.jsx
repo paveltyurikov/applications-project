@@ -62,7 +62,7 @@ const ApplicationsListItem = ({ application }) => {
           </Button>
         </CardActions>
       </Card>
-      <NotifyMeDialog appId={application.id} open={visibility} hide={hide} />
+      <NotifyMeDialog open={visibility} hide={hide} />
     </>
   );
 };

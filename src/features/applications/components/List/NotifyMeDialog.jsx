@@ -11,29 +11,28 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useNotifyMe } from "~/features/applications/hooks";
 import validateEmail from "~/lib/validateEmail";
 
 /**
  * NotifyMeDialog component
- * @param {number} appId - application id
  * @param {bool} open - is dialog open
  * @param {func} hide - close dialog callback
  */
-const NotifyMeDialog = ({ appId, open, hide }) => {
-  const [email, setEmail] = useState("");
-  const { mutate: notifyMe } = useNotifyMe();
+const NotifyMeDialog = ({ open, hide }) => {
+  const [email, setEmail] = useState({ email: "", isError: false });
 
   const handleInputChange = useCallback((e) => {
-    setEmail(e.target.value);
+    setEmail((curr) => ({ ...curr, email: e.target.value, isError: false }));
   }, []);
 
   const handleSubmitClick = () => {
-    notifyMe({ email, appId });
-    hide();
+    if (Boolean(email.email) && !validateEmail(email.email)) {
+      setEmail((curr) => ({ ...curr, isError: true }));
+    } else {
+      setEmail(() => ({ email: "", isError: false }));
+      hide();
+    }
   };
-
-  const error = Boolean(email) && !validateEmail(email);
 
   return (
     <Dialog open={open} maxWidth="sm">
@@ -72,8 +71,8 @@ const NotifyMeDialog = ({ appId, open, hide }) => {
           placeholder="email@email.com"
           label="Email"
           fullWidth
-          error={error}
-          helperText={error ? "Invalid email address" : undefined}
+          error={email.isError}
+          helperText={email.isError ? "Invalid email address" : undefined}
         />
       </DialogContent>
       <DialogActions sx={{ padding: (theme) => theme.spacing(2, 3, 3, 3) }}>
@@ -83,7 +82,7 @@ const NotifyMeDialog = ({ appId, open, hide }) => {
         <Button
           variant="contained"
           onClick={handleSubmitClick}
-          disabled={error || !email}
+          disabled={email.isError}
         >
           Notify me
         </Button>
