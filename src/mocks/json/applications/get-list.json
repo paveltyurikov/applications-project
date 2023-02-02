@@ -1,0 +1,177 @@
+[
+  {
+    "id": 1,
+    "title": "Darwinbox",
+    "icon": "./public/vite.svg",
+    "categories": ["HIRS", "Payroll"],
+    "description": "Darwinbox provides end-to-end agile HRMS suite to deliver countless results within one platform for your employees"
+  },
+  {
+    "id": 2,
+    "title": "Discord",
+    "icon": "./public/vite.svg",
+    "categories": ["Communications"],
+    "description": "Discord allows teams to collaborate through instant messaging and to oragnize topic-based channels to get dally updates"
+  },
+  {
+    "id": 3,
+    "title": "Filipay",
+    "icon": "./public/vite.svg",
+    "categories": ["HRIS", "Payroll"],
+    "description": "Filipay helps save time on doing manual time entries and provides robust solution for your workflow\noperations"
+  },
+  {
+    "id": 4,
+    "title": "JuanTax",
+    "icon": "./public/vite.svg",
+    "categories": ["Compliance"],
+    "description": "JuanTax provides automated books of accounts, financial reports and other features that can help leverage your business"
+  },
+  {
+    "id": 5,
+    "title": "JustPayroll",
+    "icon": "./public/vite.svg",
+    "categories": ["HRIS", "Payroll"],
+    "description": "JustPayroll seamlessly stores records on HR, timekeeping and payroll data."
+  },
+  {
+    "id": 6,
+    "title": "NetSuite",
+    "icon": "./public/vite.svg",
+    "categories": ["Accounting", "eCommerce"],
+    "description": "NetSuite helps manage vour business finances. operations, and customer relations through an Integrated cloud business software suite."
+  },
+  {
+    "id": 7,
+    "title": "PayrollHero",
+    "icon": "./public/vite.svg",
+    "categories": ["HRIS", "Communications"],
+    "description": "PayrollHero helps to streamline time, attendance and scheduling to manage your payroll easier. PayrollHero helps to streamline time, attendance and scheduling to manage your payroll easier. PayrollHero helps to streamline time, attendance and scheduling to manage your payroll easier."
+  },
+  {
+    "id": 8,
+    "title": "PhoenixHRIS",
+    "icon": "./public/vite.svg",
+    "categories": ["HRIS", "Payroll"],
+    "description": "PhoenixHRIS manages your payroll or HR process online that is best suited for your company."
+  },
+  {
+    "id": 9,
+    "title": "PwC",
+    "icon": "./public/vite.svg",
+    "categories": ["Compliance"],
+    "description": "PwC provides services for tax compliance and accounting and payroll requirements that can offer knowledge and experience in local statutory regulations."
+  },
+  {
+    "id": 10,
+    "title": "QuickBooks",
+    "icon": "./public/vite.svg",
+    "categories": ["Вookkеерing", "Payroll", "Bookkeeping"],
+    "description": "QuickBooks helps eliminate tedious manual data entry and so you can review everything in one place."
+  },
+  {
+    "id": 11,
+    "title": "some-11",
+    "icon": "./public/vite.svg",
+    "categories": ["Communications"],
+    "description": "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+  },
+  {
+    "id": 12,
+    "title": "some-12",
+    "icon": "./public/vite.svg",
+    "categories": ["eCommerce"],
+    "description": "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+  },
+  {
+    "id": 13,
+    "title": "some-13",
+    "icon": "./public/vite.svg",
+    "categories": ["Communications", "HRIS"],
+    "description": "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+  },
+  {
+    "id": 14,
+    "title": "some-14",
+    "icon": "./public/vite.svg",
+    "categories": ["Compliance", "Payroll"],
+    "description": "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+  },
+  {
+    "id": 15,
+    "title": "some-15",
+    "icon": "./public/vite.svg",
+    "categories": ["category-1", "category-2"],
+    "description": "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+  },
+  {
+    "id": 16,
+    "title": "some-16",
+    "icon": "./public/vite.svg",
+    "categories": ["category-1", "category-2"],
+    "description": "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+  },
+  {
+    "id": 17,
+    "title": "some-17",
+    "icon": "./public/vite.svg",
+    "categories": ["category-1", "category-2"],
+    "description": "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+  },
+  {
+    "id": 18,
+    "title": "some-18",
+    "icon": "./public/vite.svg",
+    "categories": ["category-1", "category-2"],
+    "description": "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+  },
+  {
+    "id": 19,
+    "title": "some-19",
+    "icon": "./public/vite.svg",
+    "categories": ["category-1", "category-2"],
+    "description": "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+  },
+  {
+    "id": 20,
+    "title": "some-20",
+    "icon": "./public/vite.svg",
+    "categories": ["category-1", "category-2"],
+    "description": "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+  },
+  {
+    "id": 21,
+    "title": "some-21",
+    "icon": "./public/vite.svg",
+    "categories": ["category-1", "category-2"],
+    "description": "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+  },
+  {
+    "id": 22,
+    "title": "some-22",
+    "icon": "./public/vite.svg",
+    "categories": ["category-1", "category-2"],
+    "description": "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+  },
+  {
+    "id": 23,
+    "title": "some-23",
+    "icon": "./public/vite.svg",
+    "categories": ["category-1", "category-2"],
+    "description": "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+  },
+  {
+    "id": 24,
+    "title": "some-24",
+    "icon": "./public/vite.svg",
+    "categories": ["category-1", "category-2"],
+    "description": "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+  },
+  {
+    "id": 25,
+    "title": "some-25",
+    "icon": "./public/vite.svg",
+    "categories": ["Accounting", "category-2"],
+    "description": "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+  }
+]

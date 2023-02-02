@@ -40,6 +40,6 @@
     ]
   },
   "settings": {
-    "import/internal-regex": "(^~/components)|(^~/constants/.+)|(^~/apps)|(^~/hooks)|(^~/lib)|(^~/modules)"
+    "import/internal-regex": "(^~/components)|(^~/constants/.+)|(^~/features)|(^~/hooks)|(^~/lib)|(^~/modules)|(^~/providers)"
   }
 }

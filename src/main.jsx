@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import initApp from "~/lib/initApp.js";
+import AllProviders from "~/providers/AllProviders";
 import App from "./App";
 import "./index.css";
-import AllProviders from "~/providers/AllProviders";
+
 
 
 initApp();
