@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import {
   formatRange,
   getRowsDisplayedRange,
-} from "~/components/PaginationInfo/lib.js";
+} from "@/components/PaginationInfo/lib.js";
 
 
 const PaginationInfo = ({ page, count }) => {

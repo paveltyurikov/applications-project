@@ -1,4 +1,4 @@
-import { useAppStateContext } from "~/context/appContext.js";
+import { useAppStateContext } from "@/context/appContext.js";
 
 
 const usePagination = () => {

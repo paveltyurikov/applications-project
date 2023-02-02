@@ -1,4 +1,4 @@
-import ListEmptyWarning from "./ListEmptyWarning.jsx";
+import ListEmptyWarning from "./ListEmptyWarning";
 
 
 export default ListEmptyWarning;

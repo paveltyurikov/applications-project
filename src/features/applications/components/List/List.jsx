@@ -1,11 +1,11 @@
 import { Grid } from "@mui/material";
-import AppliedFilters from "~/components/AppliedFilters";
-import ListEmptyWarning from "~/components/ListEmptyWarning/index.js";
-import ListFilter from "~/components/ListFilter/ListFilter";
-import ListPagination from "~/components/ListPagination";
-import PaginationInfo from "~/components/PaginationInfo";
-import ApplicationsListItem from "~/features/applications/components/List/ListItem.jsx";
-import { useFilter, usePagination, useSearch } from "~/hooks";
+import AppliedFilters from "@/components/AppliedFilters";
+import ListEmptyWarning from "@/components/ListEmptyWarning";
+import ListFilter from "@/components/ListFilter/ListFilter";
+import ListPagination from "@/components/ListPagination";
+import PaginationInfo from "@/components/PaginationInfo";
+import ApplicationsListItem from "@/features/applications/components/List/ListItem";
+import { useFilter, usePagination, useSearch } from "@/hooks";
 import { useApplicationsList } from "../../hooks";
 import ListFilterButton from "./ListFilterButton";
 

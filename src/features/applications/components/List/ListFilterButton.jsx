@@ -2,7 +2,7 @@ import { useRef } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { Button } from "@mui/material";
-import useVisibility from "~/hooks/useVisibility";
+import useVisibility from "@/hooks/useVisibility";
 import ApplicationsListFilterDialog from "./ListFilterDialog";
 
 

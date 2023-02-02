@@ -1,5 +1,5 @@
 import { Chip, Stack, ThemeProvider } from "@mui/material";
-import APPLIED_FILTERS_THEME from "~/components/AppliedFilters/theme";
+import APPLIED_FILTERS_THEME from "@/components/AppliedFilters/theme";
 
 
 const AppliedFilters = ({

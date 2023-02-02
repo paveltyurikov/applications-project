@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from "react";
-import { DEFAULT_PAGE_SIZE } from "~/constants/config";
+import { DEFAULT_PAGE_SIZE } from "@/constants/config";
 
 
 export const getPagesCount = (count, pageSize) => {

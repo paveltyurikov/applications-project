@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import validateEmail from "~/lib/validateEmail";
+import validateEmail from "@/lib/validateEmail.js";
 
 /**
  * NotifyMeDialog component

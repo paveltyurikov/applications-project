@@ -1,7 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import AllProviders from "~/providers/AllProviders/index";
-import ApplicationsListItem from "./ListItem.jsx";
+import AllProviders from "@/providers/AllProviders/index";
+import ApplicationsListItem from "./ListItem";
 
 
 const testApplication = {

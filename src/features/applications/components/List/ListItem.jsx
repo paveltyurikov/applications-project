@@ -8,8 +8,8 @@ import {
   CardHeader,
   Typography,
 } from "@mui/material";
-import useVisibility from "~/hooks/useVisibility";
-import NotifyMeDialog from "./NotifyMeDialog.jsx";
+import useVisibility from "@/hooks/useVisibility";
+import NotifyMeDialog from "./NotifyMeDialog";
 
 /**
  * ApplicationsListItem component

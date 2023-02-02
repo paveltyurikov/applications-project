@@ -1,11 +1,11 @@
 import { useCallback, useState } from "react";
 import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
-import FilterDialog from "~/components/ListFilterDialog";
+import FilterDialog from "@/components/ListFilterDialog";
 import {
   APPLICATIONS_CATEGORIES,
   INITIAL_FILTER_STATE,
-} from "~/features/applications/constants/filterCategories";
-import { useFilter } from "~/hooks";
+} from "@/features/applications/constants/filterCategories";
+import { useFilter } from "@/hooks";
 
 
 const ApplicationsListFilterDialog = ({ anchorEl, open, hide }) => {

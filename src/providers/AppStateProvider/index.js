@@ -1,4 +1,4 @@
-import AppStateProvider from "./AppStateProvider.jsx";
+import AppStateProvider from "./AppStateProvider";
 
 
 export default AppStateProvider;

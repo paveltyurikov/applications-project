@@ -1,4 +1,4 @@
-import PaginationInfo from "./PaginationInfo.jsx";
+import PaginationInfo from "./PaginationInfo";
 
 
 export default PaginationInfo;

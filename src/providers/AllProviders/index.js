@@ -1,4 +1,4 @@
-import AllProviders from "./AllProviders.jsx";
+import AllProviders from "./AllProviders";
 
 
 export default AllProviders;

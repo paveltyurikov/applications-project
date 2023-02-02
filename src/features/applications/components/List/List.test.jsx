@@ -7,7 +7,7 @@ import {
   within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import AllProviders from "~/providers/AllProviders/index.js";
+import AllProviders from "@/providers/AllProviders";
 import ApplicationsList from "./List";
 
 

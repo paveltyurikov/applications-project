@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import icon from "~/assets/empty-list.png";
+import icon from "@/assets/empty-list.png";
 
 
 const IMAGE_BOX_SX = {
