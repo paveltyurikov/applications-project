@@ -17,8 +17,7 @@
     "@mui/material": "^5.11.6",
     "axios": "^1.2.5",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-query": "^3.39.3"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -33,14 +32,9 @@
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-react": "^7.32.1",
-    "fuse.js": "^6.6.2",
     "jsdom": "^21.1.0",
-    "msw": "^1.0.0",
     "prettier": "^2.8.3",
     "vite": "^4.0.0",
     "vitest": "^0.28.2"
-  },
-  "msw": {
-    "workerDirectory": "public"
   }
 }
