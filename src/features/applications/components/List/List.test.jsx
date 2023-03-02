@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  cleanup,
-  render,
-  screen,
-  waitFor,
-  within,
-} from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, vi } from "vitest";
+import { vi } from "vitest";
 import * as getListAPi from "~/features/applications/api/getList";
 import AllProviders from "~/providers/AllProviders/index.js";
 import ApplicationsList from "./List";
@@ -15,22 +9,15 @@ import ApplicationsList from "./List";
 
 const getList = vi.spyOn(getListAPi, "default");
 
-const ui = (
+const ui = () => (
   <AllProviders>
     <ApplicationsList />
   </AllProviders>
 );
 
 describe("ApplicationsList", () => {
-  beforeEach((context) => {
-    cleanup();
-    console.dir(context);
-  });
-  afterEach(() => {
-    vi.resetAllMocks();
-  });
   test("should render correctly", async () => {
-    render(ui);
+    render(ui());
     await waitFor(() => screen.findByText("Discord"));
     expect(screen.queryAllByTestId("application-card").length).toBe(10);
     expect(screen.getByTestId("pagination-info")).toBeInTheDocument();
@@ -42,7 +29,7 @@ describe("ApplicationsList", () => {
     expect(screen.getByTestId("list-pagination")).toBeInTheDocument();
   });
   test("should handle page change with select box2", async () => {
-    render(ui);
+    render(ui());
     await waitFor(() => screen.findByText("Discord"));
     expect(
       within(screen.getByTestId("list-pagination")).getByLabelText("page 1")
@@ -56,14 +43,14 @@ describe("ApplicationsList", () => {
     await userEvent.click(
       within(screen.getByRole("presentation")).getByText(2)
     );
-    // await waitFor(() => screen.findByText(/some-11/));
+    await waitFor(() => screen.findByText(/some-11/));
     expect(getList).toHaveBeenCalledWith({
       categories: [],
       page: 2,
     });
   });
   test("should handle Filters change", async () => {
-    render(ui);
+    render(ui());
 
     await waitFor(() => screen.findByText("Discord"));
     // expect(getList).toHaveBeenCalledTimes(1);
@@ -115,7 +102,7 @@ describe("ApplicationsList", () => {
     });
   });
   test("should handle page change", async () => {
-    render(ui);
+    render(ui());
 
     // expect(getList).toHaveBeenCalledTimes(1);
     await waitFor(() => screen.findByText("Discord"), { timeout: 4000 });
@@ -143,7 +130,7 @@ describe("ApplicationsList", () => {
     });
   });
   test("should handle page change with select box", async () => {
-    const { debug } = render(ui);
+    const { debug } = render(ui());
     await screen.findByText("Discord");
     expect(
       within(screen.getByTestId("list-pagination")).getByLabelText("page 1")

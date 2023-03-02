@@ -1,5 +1,6 @@
 import "@testing-library/jest-dom";
 import { configure } from "@testing-library/react";
+import reactQueryClient from "~/lib/reactQueryClient";
 import { server } from "./mocks/server";
 
 
@@ -18,4 +19,9 @@ afterEach(() => {
 afterAll(() => {
   // Clean up once the tests are done.
   server.close();
+});
+
+// general cleanup
+afterEach(async () => {
+  reactQueryClient.clear();
 });

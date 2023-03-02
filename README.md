@@ -2,6 +2,18 @@
 
 This is a test project.
 
+### Install
+
+```bash
+npm install --force
+```
+
+### Test
+
+```bash
+npm run test-coverage
+```
+
 ## Project structure
 
 `components/` contains reusable UI components
